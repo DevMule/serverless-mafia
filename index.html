@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<!-- menu -->
 <nav role="navigation">
     <div id="menuToggle">
         <input type="checkbox" />
@@ -17,12 +18,34 @@
         <span></span>
         <ul id="menu">
             <a><li>Выйти в меню</li></a>
-            <a><li>Github</li></a>
-            <a><li>Info</li></a>
-            <a><li>Contact</li></a>
+            <a href="https://github.com/DevMule/serverless-mafia"><li>Github</li></a>
         </ul>
     </div>
 </nav>
+<!-- offline -->
+<div id="offlineMessage">
+    <h1>нет подключения к сервису Voxeet !!!</h1>
+</div>
+
+<!-- nickname -->
+<div id="nicknameEnter" style="display: none">
+    <div>
+        <input type="text" placeholder="nickname">
+        <button>login</button>
+        <h3 style="display: none">nick must have at least 3 characters</h3>
+    </div>
+</div>
+
+<!-- room -->
+<div id="chooseRoom" style="display: none">
+    <div>
+
+    </div>
+</div>
+
+<!-- game -->
+<div id="game" style="display: none">
+</div>
 
 <script type="module" src="application/application.js"></script>
 </body>
