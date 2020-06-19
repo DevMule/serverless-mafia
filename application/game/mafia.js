@@ -1,17 +1,17 @@
-const EnumMAFIA = {
-	PLAYER_CIVILIAN: "playerCivilian",
-	PLAYER_MAFIA: "playerMafia",
-	PLAYER_SHERIFF: "PlayerSheriff",
-	
-	TIME_DAY: "timeDay",
-	TIME_NIGHT: "timeNight",
-};
+import Player from "./player.js";
 
-class Mafia {
-	constructor() {
-		this.players = [];
+export default class Mafia {
+	constructor(app) {
+		this.app = app;
+		
+		this.players /*[Player]*/ = [];
+		this.me /*Player*/ = null;
+		this.screen = document.getElementById("game");
 	}
 }
 
-export {EnumMAFIA, Mafia};
+Mafia.GAME_WAITING = "gameWaiting";
+Mafia.GAME_PLAYING = "gamePlaying";
 
+Mafia.TIME_DAY = "timeDay";
+Mafia.TIME_NIGHT = "timeNight";

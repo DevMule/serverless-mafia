@@ -23,6 +23,12 @@ class Application {
 			if (!(nick.length < 3)) this.sessionOpen(nick);
 		};
 		
+		// connect to room or create room
+		document.getElementById("connectToRoom").onclick = () => {
+			let roomName = document.getElementById("chooseRoom").children[0].children[0].value;
+			this.conferenceEnter(roomName);
+		};
+		
 		this.init().then(r => {
 			this.setInterface(Application.AUTH)
 		});
@@ -47,54 +53,43 @@ class Application {
 	onMessage(participant /*Participant*/, message /*Object*/) {
 	}
 	
+	onJoinedConference() {
+		this.setInterface(Application.GAME);
+	}
+	
 	// conference
 	onLeftConference() {
+		this.setInterface(Application.MENU);
+		this.conference = null;
 	}
 	
 	onEndedConference() {
 		this.setInterface(Application.MENU);
+		this.conference = null;
 	}
 	
-	onJoinedConference() {
-	}
-	
-	conferenceCreate() {
+	// create new or enter existed conference
+	conferenceEnter(name, pin) {
+		let conf = null;
 		VoxeetSDK.conference.create({
-			/*options*/
-			alias: "name",
-			params: {},
-			pinCode: "code",
+			alias: name,
+			pinCode: pin,
 		}).then((conference) => {
-			this.conferenceJoin(conference.id);
+			VoxeetSDK.conference.join(conference, {});
+			conf = conference;
+		}).then(() => {
+			this.conference = conf;
 		}).catch(error => {
 			console.error(error);
 		});
-	}
-	
-	conferenceLeave() {
-	}
-	
-	conferenceJoin(conferenceId) {
-		VoxeetSDK.conference
-			.join(conferenceId, {constraints: {audio: true, video: true}})
-			.then(conference => {
-				this.conference = conference;
-			}).catch(error => console.error(error));
 	}
 	
 	// sessions
 	sessionOpen(nick) {
 		VoxeetSDK.session.open({name: nick})
 			.then(() => {
-				this.conferenceCreate();
 				this.setInterface(Application.MENU);
 			});
-	}
-	
-	sessionClose() {
-		VoxeetSDK.session.close().then(() => {
-			this.conference = null;
-		});
 	}
 	
 	// participants

@@ -13,6 +13,7 @@
 <nav role="navigation">
     <div id="menuToggle">
         <input type="checkbox" />
+        <div id="menuCover"></div>
         <span></span>
         <span></span>
         <span></span>
@@ -23,28 +24,29 @@
     </div>
 </nav>
 <!-- offline -->
-<div id="offlineMessage">
-    <h1>нет подключения к сервису Voxeet !!!</h1>
+<div class="screenOuter" id="offlineMessage">
+    <h1 class="screenInner">нет подключения к сервису Voxeet !!!</h1>
 </div>
 
 <!-- nickname -->
-<div id="nicknameEnter" style="display: none">
-    <div>
+<div class="screenOuter" id="nicknameEnter" style="display: none">
+    <div class="screenInner">
         <input type="text" placeholder="nickname">
-        <button>login</button>
+        <button>LOGIN</button>
         <h3 style="display: none">nick must have at least 3 characters</h3>
     </div>
 </div>
 
 <!-- room -->
-<div id="chooseRoom" style="display: none">
-    <div>
-
+<div class="screenOuter" id="chooseRoom" style="display: none">
+    <div class="screenInner">
+        <input style="width: 220px;" type="text" placeholder="room name"></br>
+        <button id="connectToRoom" style="width: 284px;">ENTER ROOM</button>
     </div>
 </div>
 
 <!-- game -->
-<div id="game" style="display: none">
+<div class="screenOuter" id="game" style="display: none">
 </div>
 
 <script type="module" src="application/application.js"></script>
