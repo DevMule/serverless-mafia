@@ -1,103 +1,108 @@
 import "./settings.js"; // global settings
-import Mafia from "./game/mafia.js";
+import Game from "./game/mafia.js";
 
 class Application {
 	constructor() {
-		this.conference = null;
+		this.game /*Mafia*/ = new Game();
+		this.state = Application.OFFLINE;
 		
 		// voxeet events
-		VoxeetSDK.command.on("received", this.onMessage.bind(this));
 		VoxeetSDK.conference.on("ended", this.onEndedConference.bind(this));
 		VoxeetSDK.conference.on("joined", this.onJoinedConference.bind(this));
 		VoxeetSDK.conference.on("left", this.onLeftConference.bind(this));
-		VoxeetSDK.conference.on('participantAdded', this.onParticipantAdded.bind(this));
-		VoxeetSDK.conference.on('participantUpdated', this.onParticipantUpdated.bind(this));
 		VoxeetSDK.conference.on('streamAdded', this.onStreamAdded.bind(this));
 		VoxeetSDK.conference.on('streamRemoved', this.onStreamRemoved.bind(this));
 		VoxeetSDK.conference.on('streamUpdated', this.onStreamUpdated.bind(this));
 		
+		this.nicknameInput = document.getElementById("nicknameEnter").children[0].children[0];
+		this.nicknameLoginBtn = document.getElementById("nicknameEnter").children[0].children[1];
+		this.nicknameError = document.getElementById("nicknameEnter").children[0].children[2];
+		this.roomNameInput = document.getElementById("chooseRoom").children[0].children[0];
+		this.roomConnectBtn = document.getElementById("connectToRoom");
+		this.goToMenuBtn = document.getElementById("menu").children[0];
+		
 		// set nickname events
-		document.getElementById("nicknameEnter").children[0].children[1].onclick = () => {
-			let nick = document.getElementById("nicknameEnter").children[0].children[0].value.trim();
-			document.getElementById("nicknameEnter").children[0].children[2].style.display = (nick.length < 3) ? "" : "none";
+		this.nicknameLoginBtn.onclick = () => {
+			let nick = this.nicknameInput.value.trim();
+			this.nicknameError.style.display = (nick.length < 3) ? "" : "none";
 			if (!(nick.length < 3)) this.sessionOpen(nick);
+			this.nicknameLoginBtn.disabled = true;
 		};
 		
 		// connect to room or create room
-		document.getElementById("connectToRoom").onclick = () => {
-			let roomName = document.getElementById("chooseRoom").children[0].children[0].value;
-			this.conferenceEnter(roomName);
+		this.roomConnectBtn.onclick = () => {
+			this.conferenceEnter(this.roomNameInput.value);
+			this.roomConnectBtn.disabled = true;
 		};
 		
-		this.init().then(r => {
-			this.setInterface(Application.AUTH)
-		});
+		this.goToMenuBtn.onclick = () => {
+			if (this.state === Application.GAME) VoxeetSDK.conference.leave();
+		};
+		
+		this.init();
 	}
 	
 	async init() {
 		try {
 			await VoxeetSDK.initialize(document.settings.voxeet.key, document.settings.voxeet.secret);
+			this.setInterface(Application.AUTH)
 		} catch (e) {
 			alert(e);
 		}
 	}
 	
 	setInterface(state) {
+		this.state = state;
+		
 		document.getElementById("offlineMessage").style.display = state === Application.OFFLINE ? "" : "none";
 		document.getElementById("nicknameEnter").style.display = state === Application.AUTH ? "" : "none";
 		document.getElementById("chooseRoom").style.display = state === Application.MENU ? "" : "none";
 		document.getElementById("game").style.display = state === Application.GAME ? "" : "none";
+		
+		if (state === Application.MENU) this.roomConnectBtn.disabled = false;
+		if (state === Application.AUTH) this.nicknameLoginBtn.disabled = false;
+		
 	}
 	
-	// events
-	onMessage(participant /*Participant*/, message /*Object*/) {
-	}
-	
+	// me joined
 	onJoinedConference() {
 		this.setInterface(Application.GAME);
+		this.game.video = false;
+		this.game.audio = true;
 	}
 	
 	// conference
 	onLeftConference() {
 		this.setInterface(Application.MENU);
-		this.conference = null;
 	}
 	
 	onEndedConference() {
 		this.setInterface(Application.MENU);
-		this.conference = null;
 	}
 	
 	// create new or enter existed conference
-	conferenceEnter(name, pin) {
-		let conf = null;
-		VoxeetSDK.conference.create({
-			alias: name,
-			pinCode: pin,
-		}).then((conference) => {
-			VoxeetSDK.conference.join(conference, {});
-			conf = conference;
-		}).then(() => {
-			this.conference = conf;
-		}).catch(error => {
-			console.error(error);
-		});
+	async conferenceEnter(name) {
+		let constraints = {
+			audio: true,
+			video: {
+				width: {
+					min: "320",
+					max: "960",
+				},
+				height: {
+					min: "240",
+					max: "720",
+				},
+			},
+		};
+		let conference = await VoxeetSDK.conference.create({alias: name});
+		await VoxeetSDK.conference.join(conference, {constraints});
 	}
 	
 	// sessions
-	sessionOpen(nick) {
-		VoxeetSDK.session.open({name: nick})
-			.then(() => {
-				this.setInterface(Application.MENU);
-			});
-	}
-	
-	// participants
-	onParticipantAdded(participant) {
-	}
-	
-	onParticipantUpdated(participant) {
-		// someone updated, maybe its better to look his status
+	async sessionOpen(nick) {
+		await VoxeetSDK.session.open({name: nick});
+		this.setInterface(Application.MENU);
 	}
 	
 	// streams

@@ -198,4 +198,5 @@ button {
     background-color: var(--light);
     color: var(--bright);
     font-weight: bold;
+    cursor: pointer;
 }
