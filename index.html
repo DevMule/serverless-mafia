@@ -50,21 +50,55 @@
 <div id="game" style="display: none">
 
     <header id="header">
-        <div id="time-of-day">
-            Day
+        <div id="part-of-day">
+            <span id="part-of-day-name-title">Time:
+                <b id="part-of-day-name">day</b>
+            </span>
+            <img src="img/day.png"  id="part-of-day-img">
+        </div>
+        <div id="role">
+                <span id="role-name-title">Your role:
+                    <b id="role-name">mafia</b>
+                </span>
+            <img src="img/mafia.jpg" id="role-img">
         </div>
     </header>
 
     <main id = "content">
 
-        <section id = "chat"></section>
+        <section id = "chat">
+            <div id="chat-body">
+                <div class="chat-message">
+                    <b class="chat-message-username">Player1</b>
+                    <span>: </span>
+                    <p class="chat-message-text">Lorem ipsum dolor sit amet.</p>
+                </div>
+                </div>
+            <div id="send-chat-message">
+                <input placeholder="Enter message" type="text" id="send-chat-input">
+                <button id="send-chat-submit">
+                    Send
+                </button>
+
+            </div>
+        </section>
         <section id = "main-game">
             <div class = "player" style="background: #ff0"></div>
             <div class = "player" style="background: #f0f"></div>
             <div class = "player" style="background: #0cf"></div>
             <div class = "player" style="background: #fc0"></div>
         </section>
-        <section id = "info"></section>
+        <section id = "info">
+
+            <div id="log">
+            <button id="log-rules">Hide logs</button>
+            <ul id="log-body">
+                <li class="log-message">Lorem ipsum dolor sit.</li>
+                <li class="log-message">Lorem ipsum dolor sit.</li>
+                <li class="log-message">Lorem ipsum dolor sit.</li>
+            </ul>
+            </div>
+        </section>
     </main>
 
 </div>
