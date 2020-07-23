@@ -1,105 +1,50 @@
-/*@import url("/style/varibales.css");*/
-
+/*Variables*/
 :root {
     --dark: #232323;
     --light: #cdcdcd;
     --bright: tomato;
-}
-*
-{
-	padding: 0;
-	margin: 0;
+	--header-height: 120px;
 }
 
+/*--------header---------*/
 #header
 {
-	height: 120px;
+	height: var(--header-height);
 	width: 100%;
 	background: var(--bright);
+
+
+
+	display: grid;
+	grid-template-columns: calc(100% - 280px) 280px;
+	grid-template-rows: 120px;
+	justify-items: center;
+	align-items: center;
+}
+
+#part-of-day-and-role
+{
+	padding-left: 280px;
+	height: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 }
 
-#part-of-day
+#part-of-day, #role
 {
 	margin-right: 30px;
 }
 
-#content
-{
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	-ms-align-items: center;
-	align-items: center;
-	-webkit-flex-direction: row;
-	-moz-flex-direction: row;
-	-ms-flex-direction: row;
-	-o-flex-direction: row;
-	flex-direction: row;
 
-
-	height: calc(100vh - 120px);
-}
-
-
-/*------------------*/
-
-#main-game
-{
-
-	height: 100%;
-	width: calc(100vw - 2*280px);
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-.player
-{
-	/*width: 400px;*/
-	width: auto;
-	/*height: 400px;*/
-	height: minmax(auto, 200px)
-
-}
-
-#send-chat-message
+#info-rules
 {
 	display: flex;
 	flex-direction: column;
 }
 
-#chat, #info
-{
-	height: 100%;
-	width: 280px;
-}
-
-#chat-body
-{
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	height: 100%;
-}
-
-#chat, #log
-{
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-}
-
-#log-body
-{
-	padding-left: 20px;
-}
-
-#part-of-day, #role
+#part-of-day, #role, #voting
 {
 	height: 60%;
 	padding: 2px 10px;
@@ -116,12 +61,162 @@
 	height: 100%;
 	width: auto;
 }
-/*#role-img*/
-/*{*/
-/*	height: 100px;*/
-/*}*/
 
-.chat-message
+/*Цвета квадратов для отметки голосования*/
+.voting-point-green
+{
+	fill: #3ddc71;
+	stroke: #3cc663;
+}
+.voting-point-red
+{
+	fill: #fa2948;
+	stroke: #bf0126;
+}
+
+#voting-field
+{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 30px);
+	grid-template-rows: repeat(2, 30px);
+	grid-auto-flow: column;
+
+	height: 100%;
+}
+
+/*--------main---------*/
+
+#content
+{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+
+	height: calc(100vh - var(--header-height));
+}
+
+#main-game
+{
+
+	height: 100%;
+	flex-grow: 1;
+
+}
+
+.main-game-grid
+{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
+.main-game-choose
+{
+	display: grid;
+	grid-template-columns: 1fr 20%;
+	grid-template-rows: 1fr;
+	grid-template-areas:
+			"main ."
+			"main ."
+			"main ."
+			"main ."
+			"main ."
+			"main ."
+			"main ."
+			"main .";
+}
+
+
+.main-game-choose>.player
+{
+	/*grid-area: other;*/
+
+	height: 200px;
+}
+
+.main-game-choose>.player-index
+{
+	height: minmax(auto, 200px);
+	grid-area: main;
+}
+
+.main-game-grid>.player
+{
+	height: minmax(auto, 200px);
+}
+
+.player
+{
+	width: auto;
+	position: relative;
+}
+
+
+.player-username, .player-voting
+{
+	padding: 0 5px;
+	left: 10px;
+	top: 10px;
+	position: relative;
+	border-radius: 5px;
+	z-index: -20;
+	height: 25px;
+}
+.player-username
+{
+	background: var(--light);
+}
+
+.player-voting
+{
+	background: #ff7a7a;
+}
+
+.player-video-stream
+{
+	position: relative;
+	top: -25px;
+	z-index: -30;
+	width: 100%;
+	height: 100%;
+}
+
+
+
+#send-chat-message
+{
+	display: flex;
+	flex-direction: column;
+}
+
+#info
+{
+	display: grid;
+	grid-template-rows: repeat(auto-fill, 1fr);
+	grid-gap: 5px;
+	height: 100%;
+	width: 280px;
+}
+
+#chat-body, #log-body
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	height: 100%;
+}
+
+#chat, #log
+{
+	overflow:scroll;
+	overflow-x:hidden;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	/*border: 3px solid #000;*/
+}
+
+.chat-message, .log-message
 {
 	padding: 5px;
 	margin: 5px;

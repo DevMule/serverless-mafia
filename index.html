@@ -50,57 +50,198 @@
 <div id="game" style="display: none">
 
     <header id="header">
-        <div id="part-of-day">
-            <span id="part-of-day-name-title">Time:
-                <b id="part-of-day-name">day</b>
-            </span>
-            <img src="img/day.png"  id="part-of-day-img">
-        </div>
-        <div id="role">
+        <div id="part-of-day-and-role">
+            <div id="part-of-day">
+                <span id="part-of-day-name-title">Time:
+                    <b id="part-of-day-name">day</b>
+                </span>
+                <img id="part-of-day-img" src="img/day.png">
+            </div>
+            <div id="role">
                 <span id="role-name-title">Your role:
                     <b id="role-name">mafia</b>
                 </span>
-            <img src="img/mafia.jpg" id="role-img">
+                <img id="role-img" src="img/mafia.jpg">
+            </div>
+
+            <div id="voting">
+                <span id="voting-info">Voting: <b><span id="voting-count">2</span> / <span id="voting-all-count">5</span></b></span>
+                <div id="voting-field">
+                    <svg id="voting-point-1" class="voting-point-green" width="30" height="30" >
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
+                        />
+                    </svg>
+                    <svg id="voting-point-2" class="voting-point-green" width="30" height="30" >
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
+                        />
+                    </svg>
+                    <svg id="voting-point-3" class="voting-point-red" width="30" height="30" >
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
+                        />
+                    </svg>
+                    <svg id="voting-point-4" class="voting-point-red" width="30" height="30" >
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
+                        />
+                    </svg>
+                    <svg id="voting-point-5" class="voting-point-red" width="30" height="30" >
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
+                        />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="info-rules">
+            <button id="log-rules">Hide logs</button>
+            <button id="chat-rules">Hide chat</button>
         </div>
     </header>
 
     <main id = "content">
 
-        <section id = "chat">
-            <div id="chat-body">
-                <div class="chat-message">
-                    <b class="chat-message-username">Player1</b>
-                    <span>: </span>
-                    <p class="chat-message-text">Lorem ipsum dolor sit amet.</p>
-                </div>
-                </div>
-            <div id="send-chat-message">
-                <input placeholder="Enter message" type="text" id="send-chat-input">
-                <button id="send-chat-submit">
-                    Send
-                </button>
 
+<!--        <section id = "main-game" class="main-game-grid">-->
+        <section id = "main-game" class="main-game-choose">
+            <div id="player-1" class = "player"  >
+                <b class="player-username">Player 1</b>
+                <b class="player-voting">Voted against: <span class="player-voting-count">2</span></b>
+                <div class="player-video-stream" style="background: #ff0"></div>
             </div>
-        </section>
-        <section id = "main-game">
-            <div class = "player" style="background: #ff0"></div>
-            <div class = "player" style="background: #f0f"></div>
-            <div class = "player" style="background: #0cf"></div>
-            <div class = "player" style="background: #fc0"></div>
-        </section>
-        <section id = "info">
+            <div id="player-2" class = "player" >
+                <b class="player-username">Player 2</b>
+                <div class="player-video-stream" style="background: #f0f"></div>
+            </div>
+            <div id="player-3" class = "player-index" >
+                <b class="player-username">Player 3</b>
+                <div class="player-video-stream" style="background: #0cf"></div>
+            </div>
+            <div id="player-4" class = "player" >
+                <b class="player-username">Player 4</b>
+                <div class="player-video-stream" style="background: #fc0"></div>
+            </div>
+            <div id="player-5" class = "player" >
+                <b class="player-username">Player 5</b>
+                <div class="player-video-stream" style="background: #01b210"></div>
+            </div>
 
+
+        </section>
+
+        <section id="info" >
             <div id="log">
-            <button id="log-rules">Hide logs</button>
-            <ul id="log-body">
-                <li class="log-message">Lorem ipsum dolor sit.</li>
-                <li class="log-message">Lorem ipsum dolor sit.</li>
-                <li class="log-message">Lorem ipsum dolor sit.</li>
-            </ul>
-            </div>
-        </section>
-    </main>
 
+                <div id="log-body">
+                    <div class="log-message" id = "log-message-1">
+                        <b class="log-message-title">Move #1</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-2">
+                        <b class="log-message-title">Move #2</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-3">
+                        <b class="log-message-title">Move #3</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-4">
+                        <b class="log-message-title">Move #4</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-5">
+                        <b class="log-message-title">Move #5</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-6">
+                        <b class="log-message-title">Move #6</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                    <div class="log-message" id = "log-message-7">
+                        <b class="log-message-title">Move #7</b>
+                        <span>: </span>
+                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id = "chat"  >
+                <div id="chat-body">
+                    <div class="chat-message" id = "chat-message-1">
+                        <b class="chat-message-username">Player 1</b>
+                        <span>: </span>
+                        <p class="chat-message-text">Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </div>
+                <div id="send-chat-message">
+                    <input placeholder="Enter message" type="text" id="send-chat-input">
+                    <button id="send-chat-submit">
+                        Send
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+    </main>
+    <script>
+        document.getElementById('chat-rules').onclick = () => {
+
+            if (document.getElementById('chat').style.display === 'none')
+            {
+                document.getElementById('chat').style.display = 'flex';
+                document.getElementById('info').style.display = 'grid';
+                document.getElementById('chat-rules').innerText = 'Hide chat';
+            }
+            else
+            {
+                document.getElementById('chat').style.display = 'none';
+                document.getElementById('chat-rules').innerText = 'Show chat';
+
+                if (document.getElementById('log').style.display === 'none')
+                {
+                    document.getElementById('info').style.display = 'none';
+                }
+            }
+
+        };
+        document.getElementById('log-rules').onclick = () => {
+
+            if (document.getElementById('log').style.display === 'none')
+            {
+                document.getElementById('log').style.display = 'flex';
+                document.getElementById('info').style.display = 'grid';
+                // document.getElementById('info').style.width = 'calc(100vw - 280px)';
+                document.getElementById('log-rules').innerText = 'Hide logs';
+            }
+            else
+            {
+                document.getElementById('log').style.display = 'none';
+                document.getElementById('log-rules').innerText = 'Show logs';
+
+                if (document.getElementById('chat').style.display === 'none')
+                {
+                    document.getElementById('info').style.display = 'none';
+                    // document.getElementById('main-game').style.width = "100vw";
+                }
+            }
+        };
+
+
+    </script>
 </div>
 
 <script type="module" src="application/application.js"></script>
