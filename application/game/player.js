@@ -2,6 +2,8 @@ export default class Player {
 	constructor(id) {
 		this.role = Player.SPECTATOR;
 		this.participantID = id;
+		
+		this.voitedID = null; // id игрока, за которого голосует этот игрок
 	}
 	
 	get raw() {

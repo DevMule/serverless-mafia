@@ -1,4 +1,5 @@
 import Player from "./player.js";
+import Rules from "./rules";
 
 export default class Mafia {
 	constructor() {
@@ -7,16 +8,25 @@ export default class Mafia {
 		VoxeetSDK.conference.on('participantUpdated', this.onUpdateParticipants.bind(this));
 		
 		this.screen = document.getElementById("game");
+		this.rules = new Rules();
 		
 		this.players /*[Player]*/ = {};
+		
+		// game cycle
 		this.gameStatus = Mafia.GAME_WAITING;
-		this.time = Mafia.TIME_DAY;
+		this.partOfDay = Mafia.TIME_DAY;
+		
+		this.time = 0;
 	}
 	
+	// data в пересылаемом виде :з
 	get raw() {
 		let data = {
 			gameStatus: this.gameStatus,
+			partOfDay: this.partOfDay,
+			
 			time: this.time,
+			
 			players: {},
 		};
 		for (let [key, player] of Object.entries(this.players)) data.players[key] = player.raw;
@@ -24,8 +34,10 @@ export default class Mafia {
 	}
 	
 	set raw(data) {
-		this.time = data.time;
 		this.gameStatus = data.gameStatus;
+		this.partOfDay = data.partOfDay;
+		
+		this.time = data.time;
 		
 		let players = this.players;
 		this.players = {};
@@ -36,6 +48,7 @@ export default class Mafia {
 		}
 	}
 	
+	// Voxeet interface
 	get me() {
 		return VoxeetSDK.session.participant;
 	}
@@ -92,6 +105,7 @@ export default class Mafia {
 		}
 	}
 	
+	// синхронизация
 	syncGameData() {
 		if (this.master === this.me) {
 			let message = {
@@ -109,6 +123,36 @@ export default class Mafia {
 		};
 		VoxeetSDK.command.send(JSON.stringify(message));
 	}
+	
+	// game loop
+	startGame() {
+		if (this.master === this.me && this.gameStatus === Mafia.GAME_WAITING) {
+			this.rules.setRoles(this.players);
+			this.gameStatus = Mafia.GAME_PLAYING;
+			this.partOfDay = Mafia.TIME_MEETING;
+			this.time = 0;
+			this.syncGameData();
+		}
+	}
+	
+	tick(dt) {
+		if (this.gameStatus === Mafia.GAME_PLAYING) {
+			this.time += dt; // время течёт, время бежит
+			if (this.master === this.me) {
+				
+				let players = Object.values(this.players).sort((a, b) => b.participantID > a.participantID ? 1 : -1);
+				
+				if (this.partOfDay === Mafia.TIME_MEETING) {
+					// пройтись по всем игрокам, дать им время на поболтать
+					
+				} else if (this.partOfDay === Mafia.TIME_DAY) {
+				
+				} else if (this.partOfDay === Mafia.TIME_NIGHT) {
+				
+				}
+			}
+		}
+	}
 }
 
 Mafia.UPDATE_GAME = "updateGame";
@@ -117,5 +161,6 @@ Mafia.UPDATE_PLAYER = "updatePlayer";
 Mafia.GAME_WAITING = "gameWaiting";
 Mafia.GAME_PLAYING = "gamePlaying";
 
+Mafia.TIME_MEETING = "timeMeeting";
 Mafia.TIME_DAY = "timeDay";
 Mafia.TIME_NIGHT = "timeNight";

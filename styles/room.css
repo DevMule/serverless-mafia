@@ -112,17 +112,7 @@
 .main-game-choose
 {
 	display: grid;
-	grid-template-columns: 1fr 20%;
-	grid-template-rows: 1fr;
-	grid-template-areas:
-			"main ."
-			"main ."
-			"main ."
-			"main ."
-			"main ."
-			"main ."
-			"main ."
-			"main .";
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 
@@ -130,7 +120,7 @@
 {
 	/*grid-area: other;*/
 
-	height: 200px;
+	/*height: 200px; будет рассчитываться программно - высота / (кол-во необходимых строк) */
 }
 
 .main-game-choose>.player-index
