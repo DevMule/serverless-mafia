@@ -48,7 +48,6 @@
 
 <!-- game -->
 <div id="game" style="display: none">
-
     <header id="header">
         <div id="part-of-day-and-role">
             <div id="part-of-day">
@@ -63,29 +62,23 @@
                 </span>
                 <img id="role-img" src="img/mafia.jpg">
             </div>
-
             <div id="voting">
                 <span id="voting-info">Voting: <b><span id="voting-count">2</span> / <span id="voting-all-count">5</span></b></span>
-                <div id="voting-field">
+                <div id="voting-field" >
                     <svg id="voting-point-1" class="voting-point-green" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
-                        />
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
                     </svg>
                     <svg id="voting-point-2" class="voting-point-green" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
-                        />
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
                     </svg>
                     <svg id="voting-point-3" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
-                        />
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
                     </svg>
                     <svg id="voting-point-4" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
-                        />
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
                     </svg>
                     <svg id="voting-point-5" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"
-                        />
+                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
                     </svg>
                 </div>
             </div>
@@ -93,44 +86,44 @@
 
 
         <div id="info-rules">
-            <button id="log-rules">Hide logs</button>
-            <button id="chat-rules">Hide chat</button>
+            <button id="log-rules"  >Show logs</button>
+            <button id="chat-rules" >Show chat</button>
         </div>
     </header>
-
     <main id = "content">
-
-
-<!--        <section id = "main-game" class="main-game-grid">-->
-        <section id = "main-game" class="main-game-choose">
-            <div id="player-1" class = "player"  >
-                <b class="player-username">Player 1</b>
-                <b class="player-voting">Voted against: <span class="player-voting-count">2</span></b>
-                <div class="player-video-stream" style="background: #ff0"></div>
+        <section id = "game-field" >
+            <div id="game-view" class="game-view-grid">
+                <div id="index-view"></div>
+                <div id="grid-view">
+                    <div id="player-1" class = "player"  >
+                        <b class="player-username">Player 1</b>
+                        <b class="player-voting">Voted against: <span class="player-voting-count">2</span></b>
+                        <div class="player-video-stream" style="background: #ff0"></div>
+                    </div>
+                    <div id="player-2" class = "player" >
+                        <b class="player-username">Player 2</b>
+                        <div class="player-video-stream" style="background: #f0f"></div>
+                    </div>
+                    <div id="player-3" class = "player" >
+                        <b class="player-username">Player 3</b>
+                        <div class="player-video-stream" style="background: #0cf"></div>
+                    </div>
+                    <div id="player-4" class = "player" >
+                        <b class="player-username">Player 4</b>
+                        <div class="player-video-stream" style="background: #fc0"></div>
+                    </div>
+                    <div id="player-5" class = "player" >
+                        <b class="player-username">Player 5</b>
+                        <div class="player-video-stream" style="background: #01b210"></div>
+                    </div>
+                </div>
             </div>
-            <div id="player-2" class = "player" >
-                <b class="player-username">Player 2</b>
-                <div class="player-video-stream" style="background: #f0f"></div>
+            <div id="change-game-view">
+                <img id="change-game-view-img" src="img/view-choose.svg" alt="">
             </div>
-            <div id="player-3" class = "player-index" >
-                <b class="player-username">Player 3</b>
-                <div class="player-video-stream" style="background: #0cf"></div>
-            </div>
-            <div id="player-4" class = "player" >
-                <b class="player-username">Player 4</b>
-                <div class="player-video-stream" style="background: #fc0"></div>
-            </div>
-            <div id="player-5" class = "player" >
-                <b class="player-username">Player 5</b>
-                <div class="player-video-stream" style="background: #01b210"></div>
-            </div>
-
-
         </section>
-
-        <section id="info" >
-            <div id="log">
-
+        <section id="info" style="display: none">
+            <div id="log" style="display: none">
                 <div id="log-body">
                     <div class="log-message" id = "log-message-1">
                         <b class="log-message-title">Move #1</b>
@@ -176,8 +169,7 @@
 
                 </div>
             </div>
-
-            <div id = "chat"  >
+            <div id = "chat" style="display: none" >
                 <div id="chat-body">
                     <div class="chat-message" id = "chat-message-1">
                         <b class="chat-message-username">Player 1</b>
@@ -192,58 +184,11 @@
                     </button>
                 </div>
             </div>
-
         </section>
-
-
     </main>
-    <script>
-        document.getElementById('chat-rules').onclick = () => {
-
-            if (document.getElementById('chat').style.display === 'none')
-            {
-                document.getElementById('chat').style.display = 'flex';
-                document.getElementById('info').style.display = 'grid';
-                document.getElementById('chat-rules').innerText = 'Hide chat';
-            }
-            else
-            {
-                document.getElementById('chat').style.display = 'none';
-                document.getElementById('chat-rules').innerText = 'Show chat';
-
-                if (document.getElementById('log').style.display === 'none')
-                {
-                    document.getElementById('info').style.display = 'none';
-                }
-            }
-
-        };
-        document.getElementById('log-rules').onclick = () => {
-
-            if (document.getElementById('log').style.display === 'none')
-            {
-                document.getElementById('log').style.display = 'flex';
-                document.getElementById('info').style.display = 'grid';
-                // document.getElementById('info').style.width = 'calc(100vw - 280px)';
-                document.getElementById('log-rules').innerText = 'Hide logs';
-            }
-            else
-            {
-                document.getElementById('log').style.display = 'none';
-                document.getElementById('log-rules').innerText = 'Show logs';
-
-                if (document.getElementById('chat').style.display === 'none')
-                {
-                    document.getElementById('info').style.display = 'none';
-                    // document.getElementById('main-game').style.width = "100vw";
-                }
-            }
-        };
-
-
-    </script>
 </div>
 
+<script type="module" src="animations/animations.js"></script>
 <script type="module" src="application/application.js"></script>
 </body>
 </html>
