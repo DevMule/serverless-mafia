@@ -117,6 +117,10 @@ class Application {
 	
 	onStreamRemoved(participant, stream) {
 	}
+	
+	tick(dt) {
+		this.game.tick(dt);
+	}
 }
 
 Application.OFFLINE = 0;
@@ -125,3 +129,12 @@ Application.MENU = 2;
 Application.GAME = 3;
 
 const App = new Application();
+let timestamp = Date.now();
+setInterval(() => {
+	let now = Date.now();
+	let dt = now - timestamp;
+	timestamp = now;
+	App.tick(dt);
+}, 100);
+
+if (globalThis.settings.debug) globalThis.App = App;
