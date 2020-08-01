@@ -134,7 +134,7 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
 	grid-template-rows: repeat(auto-fill, minmax(45%, 1fr));
-	grid-auto-flow: dense;
+	grid-auto-flow: dense row;
 }
 .game-view-choose>#grid-view
 {
