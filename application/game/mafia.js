@@ -1,5 +1,5 @@
 import Player from "./player.js";
-import Rules from "./rules";
+import Rules from "./rules.js";
 
 export default class Mafia {
 	constructor() {

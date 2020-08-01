@@ -1,5 +1,5 @@
-import Player from "./player";
-import mafia from "./mafia";
+import Player from "./player.js";
+import mafia from "./mafia.js";
 
 function shuffle(a) { // спызжено отсюда https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 	for (let i = a.length - 1; i > 0; i--) {
