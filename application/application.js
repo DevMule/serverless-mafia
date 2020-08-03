@@ -44,7 +44,7 @@ class Application {
 	
 	async init() {
 		try {
-			await VoxeetSDK.initialize(document.settings.voxeet.key, document.settings.voxeet.secret);
+			await VoxeetSDK.initialize(globalThis.settings.voxeet.key, globalThis.settings.voxeet.secret);
 			this.setInterface(Application.AUTH)
 		} catch (e) {
 			alert(e);
