@@ -1,0 +1,86 @@
+#controls
+{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+#controls>button
+{
+	padding: 5px;
+	margin: 0;
+	margin-left: 10px;
+	width: 50px;
+	height: 50px;
+	background-color: #fff;
+	border: 2px solid #000;
+	border-radius: 25px;
+	background-position: center;
+	background-size: 88%;
+}
+#controls>button:hover
+{ 
+	border: 3px solid #000; 
+	background-size: 95%;
+}
+
+#chat-show{	background-image: url(../img/icons/comments.svg);}
+
+#microphone-mute{ background-image: url(../img/icons/microphone-solid.svg);}
+#microphone-mute.muted
+{
+	background-color: #ffa6a6;
+	background-image: url(../img/icons/microphone-slash-solid.svg);
+}
+
+#video-mute {background-image: url(../img/icons/video-solid.svg);}
+#video-mute.muted
+{
+	background-color: #ffa6a6;
+	background-image: url(../img/icons/video-slash-solid.svg);
+}
+
+
+#vote-question
+{
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	font-size: 20px;
+	font-weight: 500;
+	border-radius: 20px;
+	background: #fff;
+	border: 3px solid #000;
+	padding: 5px;
+}
+#vote-question>button
+{
+	margin: 0;
+	padding: 0;
+	width: 1.4em;
+	height: 1.4em;
+
+	background-size: 90%;
+	background-position: center;
+	border: 2px solid #000;
+	border-radius: 1.4em;
+}
+#vote-question>button:hover
+{
+	border-width: 3px;
+	background-size: 95%;
+}
+
+#vote-yes
+{	
+	background-image: url('../img/icons/check-solid.svg');
+	background-color: #4fff87;
+}
+#vote-cancel
+{
+	background-image: url('../img/icons/times-solid.svg');
+	background-color: #ffa6a6;
+}

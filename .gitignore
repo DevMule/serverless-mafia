@@ -1,3 +1,7 @@
 
 .idea
 /dist/
+
+
+# для проверки работы интерфейса
+interfase-test.html

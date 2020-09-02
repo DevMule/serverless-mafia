@@ -58,6 +58,7 @@ class Application {
 		document.getElementById("nicknameEnter").style.display = state === Application.AUTH ? "" : "none";
 		document.getElementById("chooseRoom").style.display = state === Application.MENU ? "" : "none";
 		document.getElementById("game").style.display = state === Application.GAME ? "" : "none";
+
 		
 		if (state === Application.MENU) this.roomConnectBtn.disabled = false;
 		if (state === Application.AUTH) this.nicknameLoginBtn.disabled = false;

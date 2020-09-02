@@ -1,0 +1,103 @@
+:root {
+	--player-padding-right : 20px;
+	--player-padding-top : 20px;
+}
+
+.player
+{
+	flex-basis: 250px;
+	box-sizing: border-box;
+	background: #cfb4d1;
+	width: 500px;
+	height: 300px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	border: 5px solid rgba(0,0,0,0);
+	box-shadow: 5px 8px 5px 0px rgba(2, 2, 2, 0.32);
+	transition: border-color 0.4s ease-out;
+}
+
+.player.voiced { border-color: #07b037;}
+.player:hover   { border-color: #40d9ff;}
+
+.player-info, .player-dead, .player-vote
+{
+	display: none;
+	float: right;
+	border-radius:  40px;
+	width: 40px;
+	height:  40px;
+	margin-top: 10px;
+	margin-right: var(--player-padding-right);
+	border: 3px solid #000;
+	background-size: 90%;
+	background-position: center;
+}
+
+.player.dead>.player-dead
+{
+	background-color: #d90000;
+	display: block;
+	background-image: url('../img/icons/skull-crossbones-solid.svg');
+}
+
+.player.muted>label::before
+{
+	width: 2em;
+	margin-top: -1em;
+	content: url('../img/icons/microphone-slash-solid.svg');
+	display: inline-block;
+	margin-right: 10px; 
+}
+
+.player[rule]>.player-info
+{
+	display: block;
+	background-color: #fff;
+}
+
+.player[rule='mafia']>.player-info {background-image: url('../img/favicon.png');}
+.player[rule='peaceful']>.player-info {	background-image: url('../img/icons/dove-solid.svg');}
+.player[rule='sheriff']>.player-info {	background-image: url('../img/icons/sheriff-svgrepo-com.svg');}
+
+
+.player[voted]>.player-vote 
+{
+	display: block;
+	font-size: 27px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	background-color: #f00;
+	
+}
+
+
+.player>label
+{
+	float: right;
+	
+	margin-right: var(--player-padding-right);
+	margin-top: var(--player-padding-top);
+}
+
+.player>video
+{
+	width: 100%;
+	height: 100%;
+	border-radius: 20px;
+}
+
+.username
+{
+	font-size: 20px;
+	font-weight: 600;
+}
+.username>*
+{
+	font-size: 20px;
+}

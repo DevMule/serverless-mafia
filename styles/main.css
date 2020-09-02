@@ -15,6 +15,12 @@ html, body {
 }
 
 
+button, 
+button:active, 
+button:focus {
+    outline: none;
+}
+
 /*===============================================      hamburger      ================================================*/
 
 nav {

@@ -47,145 +47,30 @@
 </div>
 
 <!-- game -->
-<div id="game" style="display: none">
-    <header id="header">
-        <div id="part-of-day-and-role">
-            <div id="part-of-day">
-                <span id="part-of-day-name-title">Time:
-                    <b id="part-of-day-name">day</b>
-                </span>
-                <img id="part-of-day-img" src="img/day.png">
-            </div>
-            <div id="role">
-                <span id="role-name-title">Your role:
-                    <b id="role-name">mafia</b>
-                </span>
-                <img id="role-img" src="img/mafia.jpg">
-            </div>
-            <div id="voting">
-                <span id="voting-info">Voting: <b><span id="voting-count">2</span> / <span id="voting-all-count">5</span></b></span>
-                <div id="voting-field" >
-                    <svg id="voting-point-1" class="voting-point-green" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
-                    </svg>
-                    <svg id="voting-point-2" class="voting-point-green" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
-                    </svg>
-                    <svg id="voting-point-3" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
-                    </svg>
-                    <svg id="voting-point-4" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
-                    </svg>
-                    <svg id="voting-point-5" class="voting-point-red" width="30" height="30" >
-                        <rect x = "5" y = "5" width="20" height="20" rx="5" stroke-width="5"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="info-rules">
-            <button id="log-rules"  >Show logs</button>
-            <button id="chat-rules" >Show chat</button>
-        </div>
+<div id="game">
+    <header>
+        <div part = "timeDay" id="time-of-day"></div>
     </header>
-    <main id = "content">
-        <section id = "game-field" >
-            <div id="game-view" class="game-view-grid">
-                <div id="index-view"></div>
-                <div id="grid-view">
-                    <div id="player-1" class = "player"  >
-                        <b class="player-username">Player 1</b>
-                        <b class="player-voting">Voted against: <span class="player-voting-count">2</span></b>
-                        <div class="player-video-stream" style="background: #ff0"></div>
-                    </div>
-                    <div id="player-2" class = "player" >
-                        <b class="player-username">Player 2</b>
-                        <div class="player-video-stream" style="background: #f0f"></div>
-                    </div>
-                    <div id="player-3" class = "player" >
-                        <b class="player-username">Player 3</b>
-                        <div class="player-video-stream" style="background: #0cf"></div>
-                    </div>
-                    <div id="player-4" class = "player" >
-                        <b class="player-username">Player 4</b>
-                        <div class="player-video-stream" style="background: #fc0"></div>
-                    </div>
-                    <div id="player-5" class = "player" >
-                        <b class="player-username">Player 5</b>
-                        <div class="player-video-stream" style="background: #01b210"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="change-game-view">
-                <img id="change-game-view-img" src="img/view-choose.svg" alt="">
-            </div>
-        </section>
-        <section id="info" style="display: none">
-            <div id="log" style="display: none">
-                <div id="log-body">
-                    <div class="log-message" id = "log-message-1">
-                        <b class="log-message-title">Move #1</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-2">
-                        <b class="log-message-title">Move #2</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-3">
-                        <b class="log-message-title">Move #3</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-4">
-                        <b class="log-message-title">Move #4</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-5">
-                        <b class="log-message-title">Move #5</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-6">
-                        <b class="log-message-title">Move #6</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                    <div class="log-message" id = "log-message-7">
-                        <b class="log-message-title">Move #7</b>
-                        <span>: </span>
-                        <p class="log-message-text">Lorem ipsum dolor sit.</p>
-                    </div>
-
-                </div>
-            </div>
-            <div id = "chat" style="display: none" >
-                <div id="chat-body">
-                    <div class="chat-message" id = "chat-message-1">
-                        <b class="chat-message-username">Player 1</b>
-                        <span>: </span>
-                        <p class="chat-message-text">Lorem ipsum dolor sit amet.</p>
-                    </div>
-                </div>
-                <div id="send-chat-message">
-                    <input placeholder="Enter message" type="text" id="send-chat-input">
-                    <button id="send-chat-submit">
-                        Send
-                    </button>
-                </div>
-            </div>
-        </section>
+    <main id = "game-field" >
     </main>
+    <div id="chat" hidden>
+        <div id="chat-body" ></div>
+        <div id="chat-controls" >
+            <input type="text" id="chat-input">
+            <button id="send"></button>
+        </div>
+    </div>
+    <div id="controls" >
+        <button id="chat-show"></button>
+        <button id="microphone-mute"></button>
+        <button id="video-mute"></button>
+    </div>
+    <div id="vote-question" hidden>
+        <p>Проголосовать против <span class="username"></span>?</p>
+        <button id="vote-yes"></button>
+        <button id="vote-cancel"></button>
+    </div>
+    
 </div>
 
 <script type="module" src="animations/animations.js"></script>

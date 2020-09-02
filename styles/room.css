@@ -1,3 +1,8 @@
+/*Imports*/
+@import url('./player.css');
+@import url('./chat.css');
+@import url('./controls.css');
+
 /*Variables*/
 :root {
     --dark: #232323;
@@ -5,6 +10,7 @@
     --bright: tomato;
 	--header-height: 120px;
 	--info-bar-width: 15%;
+	--width-time-of-day: 130px;
 }
 
 ::-webkit-scrollbar
@@ -18,231 +24,55 @@
 }
 
 /*--------header---------*/
-#header
-{
-	height: var(--header-height);
-	width: 100%;
-	background: var(--bright);
-	display: grid;
-	grid-template-columns: calc(100% - var(--info-bar-width)) var(--info-bar-width);
-	grid-template-rows: 120px;
-	justify-items: center;
-	align-items: center;
-}
 
-#part-of-day-and-role
-{
-	padding-left: 280px;
-	height: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-}
-#part-of-day, #role
-{
-	margin-right: 30px;
-}
-#part-of-day, #role, #voting
-{
-	cursor: default;
-	height: 60%;
-	padding: 2px 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #fff;
-	border: 3px solid #000;
-	border-radius: 5px;
-}
-#part-of-day-img, #role-img
-{
-	height: 100%;
-	width: auto;
-}
-
-#info-rules
-{
-	display: flex;
-	flex-direction: column;
-}
-
-/*Цвета квадратов для отметки голосования*/
-.voting-point-green
-{
-	fill: #3ddc71;
-	stroke: #3cc663;
-}
-.voting-point-red
-{
-	fill: #fa2948;
-	stroke: #bf0126;
-}
-
-#voting-field
-{
-	display: grid;
-	grid-template-columns: repeat(auto-fill, 30px);
-	grid-template-rows: repeat(2, 30px);
-	grid-auto-flow: column;
-	height: auto;
-}
-
-/*--------main---------*/
-
-#content
-{
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-
-	height: calc(100vh - var(--header-height));
-}
-
-/*--------game-view---------*/
-
-#game-field
-{
-
-	height: 100%;
-	flex-grow: 1;
-
-}
-
-#game-view
-{
-	height: 100%;
-	width: 100%;
-}
-.game-view-grid
-{
-	display: grid;
-	grid-template-columns: 0 100%;
-	height: 100%;
-}
-.game-view-choose
-{
-	display: grid;
-
-	grid-template-columns: 1fr var(--info-bar-width);
-	height: 100%;
-}
-
-
-.game-view-grid>#grid-view
-{
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
-	grid-template-rows: repeat(auto-fill, minmax(45%, 1fr));
-	grid-auto-flow: dense row;
-}
-.game-view-choose>#grid-view
-{
-	overflow:scroll;
-	overflow-x:hidden;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: repeat(auto-fill, minmax(180px, 1fr));
-	grid-auto-flow: row;
-}
-
-#index-view>.player
-{
-	height: 100%;
-}
-.player
-{
-	background-size: 100% 100%;
-	width: auto;
-}
-
-.player-username, .player-voting
-{
-	padding: 0 5px;
-	border-radius: 5px;
-	z-index: -20;
-	height: 25px;
-}
-.player-username
-{
-	position: relative;
-	left: 10px;
-	top: 10px;
-	height: 15px;
-	background: var(--light);
-}
-.player-voting
+header
 {
 	position: absolute;
-	left: 10px;
-	top: 45px;
-	background: #ff7a7a;
-}
-
-.player-video-stream
-{
-	position: relative;
-	top: -25px;
-	z-index: -30;
 	width: 100%;
-	height: 100%;
-}
-
-#change-game-view
-{
-	position: relative;
-	float: right;
-	z-index: 2;
-	bottom: 100px;
-	right: 50px;
-	width: 80px;
-	height: 80px;
-}
-#change-game-view>img
-{
-	width: 100%;
-	height: 100%;
-}
-
-/*--------info-bar---------*/
-
-#info
-{
-	display: grid;
-	grid-template-rows: repeat(auto-fill, 1fr);
-	grid-gap: 5px;
-	height: 100%;
-	width: var(--info-bar-width);
-}
-
-#chat, #log
-{
-	overflow:scroll;
-	overflow-x:hidden;
-	width: 100%;
+	height: 0;
+	/*background: #00f;*/
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+	/*align-items: center;*/
+	justify-content: center;
 }
-#chat-body, #log-body
+
+#time-of-day
 {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
+	margin-top: -5px;
+	width: var(--width-time-of-day);
+	height: calc(var(--width-time-of-day)/2);
+	border: 5px solid #000;
+	border-bottom-left-radius: var(--width-time-of-day);
+	border-bottom-right-radius: var(--width-time-of-day);
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#time-of-day[part="timeDay"], #time-of-day[part="timeMeeting"]
+{
+	background-image: url('../img/day.png');
+	background-color: #85f7ff;
+}
+#time-of-day[part="timeNight"]
+{
+	background-image: url('../img/night.png');
+	background-color: #0e3063;
+}
+
+#game
+{
 	height: 100%;
 }
-
-#send-chat-message
+#game-field
 {
+	height: 100%;
+	/*padding: 20px;*/
+	/*padding: 0;*/
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
-.chat-message, .log-message
-{
-	padding: 5px;
-	margin: 5px;
-	background: #eee;
-	border-radius: 5px;
-
-}

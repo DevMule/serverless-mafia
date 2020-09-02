@@ -1,12 +1,12 @@
-import {showChat, showLogs} from "./info.js";
-import {changeView, choosePlayer} from "./player_view.js";
+import View from './view.js'
 
-document.getElementById('chat-rules').onclick = showChat;
-document.getElementById('log-rules').onclick = showLogs;
+let view = new View()
 
-document.getElementById("change-game-view").onclick = () => changeView();
+globalThis.view = view;
 
-for (let player_div of document.getElementsByClassName('player'))
-{
-    player_div.onclick = () =>  choosePlayer(player_div);
-}
+view.createPlayer('Player 1','',{dead: true, rule: 'mafia'});
+view.createPlayer('Player 2','../img/day.png', {voiced: true, voted:2});
+view.createPlayer('Player 3','',{rule: 'peaceful', muted: true});
+view.createChatMessage('Player 1', 'Lorem ipsum dolor sit amet, con!')
+view.createChatMessage('Player 2', '123 123 13 12312 12342121 312321!')
+view.setRoomName('Test room');
