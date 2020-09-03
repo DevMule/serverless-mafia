@@ -62,7 +62,7 @@
 .player[rule='peaceful']>.player-info {	background-image: url('../img/icons/dove-solid.svg');}
 .player[rule='sheriff']>.player-info {	background-image: url('../img/icons/sheriff-svgrepo-com.svg');}
 
-
+.player[voted="0"]>.player-vote {display: none;}
 .player[voted]>.player-vote 
 {
 	display: block;
@@ -73,7 +73,6 @@
 	justify-content: center;
 	font-weight: 600;
 	background-color: #f00;
-	
 }
 
 

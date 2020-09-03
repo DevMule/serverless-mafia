@@ -1,51 +1,74 @@
-// import Mafia from '../application/game/mafia.js'
-
 class View
 {
+	/*
+		Класс View предоставляет функционал для изменения интерфейса игры.
+		
+		Полезные атрибуты:
+			players - массив всех элементов с игроками (<div class = "player">);
+			messages - массив всех сообщений в чате (<div class = "message">).
+
+		Полезные методы:
+			createPlayer (username, src, options) - создаёт элемент с игроком (изображение с камеры, имя пользователя, статус и пр.);
+			createChatMessage (username, message) - создаёт сообщение;
+			setRoomName (roomName) - отображает название комнаты (параметр roomName) в меню (<ul id="menu">) с ссылкой на текущую страницу;
+			playersVote() - отображение голосов против игроков;
+			removePlayer(id) - удаление пользователя с данным номером (id);
+			removeMessage(id) - удаление сообщения с данным номером (id);
+	    	setPlayerMute(id) - установка статуса выключенного микрофона для пользователя с данным номером (id);
+	    	setTimeOfDay(timeState) - установка игрового времени суток. Игровое время суток (параметр timeState) может быть: "timeDay", "timeMeeting", "timeNight";
+	    	setPlayerRule(id, rule) - установка роли для пользователя с данным номером (id). Роль (параметр rule) может быть: "mafia"(мафиози), "peaceful"(мирный житель), "sheriff"(коп);
+	    	setPlayerVote(id, voteCount) - установка количества голосов (параметр voteCount) против игрока с данным номером (id).
+	*/
     constructor()
     {
-        this.body = document.getElementById('game-field')
+    	// Игровое поле, контейнер для элементов с игроками (изображение с камеры, имя пользователя, статус и пр.);
+        this.body = document.getElementById('game-field') 
 
+        // Элемент с чатом (контейнером для сообщений и полем их ввода) и контейнер для сообщений;
         this.chat = document.getElementById('chat')
         this.chatBody = document.getElementById('chat-body')
 
-        this.chatControls = document.getElementById('chat-controls');
-        this.muteMicro = document.getElementById('microphone-mute');
-        this.muteVideo = document.getElementById('video-mute')
-
-		this.timeOfDay = document.getElementById('time-of-day')
+        // Контроллеры: отображение чата, выключение микрофона, выключение вебкамеры
         this.showChat = document.getElementById('chat-show');
+        this.muteMicro = document.getElementById('microphone-mute');
+        this.muteVideo = document.getElementById('video-mute');
 
+        // Элемет с игровым временем дня (Ночь или День)
+		this.timeOfDay = document.getElementById('time-of-day')
+
+		// Вопрос о голосовании против игрока, кнопка с голосованием против игрока, кнопка с скрытием вопроса;
         this.voteQuestion = document.getElementById('vote-question');
         this.voteYes = document.getElementById('vote-yes');
-        this.onVoteFuncton = (username) => {console.log('vote on: ',username)};
         this.voteCancel = document.getElementById('vote-cancel');
-       	this.voteQuestionShowed = false;
-       	this.body.onclick = this.askQuestion.bind(this);
-       	this.voteCancel.onclick = this.hideQuestion.bind(this);
-
-        this.chatHidden = true;
-
-        this.w = parseInt(this.body.clientWidth)
-        this.h = parseInt(this.body.clientHeight)
         
+        // Функция, выполняющаяся при голосовании против игрока. Имеет параметр username - имя пользователя;
+        this.onVoteFuncton = (username) => {console.log('vote on: ',username)};
+
+        // Установка параметров для отображения элементов с игроками.
         this._perRow = 2;
         this.perRowSetted = false;
-
         this._standartWidth = 480;
         this.standartMinWidht = 200;
         this._standartHeight = 270;
         this.playerMargin = 10;
 
+        // Установка размеров игрового поля, привязка события изменения окна к изменению размеров и положения элементов с игроками.
+        this.w = parseInt(this.body.clientWidth)
+        this.h = parseInt(this.body.clientHeight)
         window.addEventListener('resize', this.resize.bind(this));
         this.resize();
 
+        // Установка оброботчиков на нажатия на кнопки.
         this.bindControls();        
     }
 
     showQuestion(event, username)
     {
-    	this.voteQuestionShowed = true;
+    	/*
+			Отображает сообщение с вопросом о голосовании против игрока.
+			Сообщение отображается в позоции {x: event.pageX, y: event.pageY}.
+			При голосовании против игрока вызывается функция onVoteFunction с именем данного пользователя, после чего сообщение скрывается.
+    	*/
     	this.voteQuestion.hidden = false;
     	this.voteQuestion.getElementsByClassName('username')[0].innerText = username;
 
@@ -57,14 +80,14 @@ class View
     	}
     }
 
-    hideQuestion()
-    {
-    	this.voteQuestionShowed = false;
-    	this.voteQuestion.hidden = true;
-    }
+    hideQuestion() {/*Скрывает сообщение с вопросом о голосовании против игрока*/ this.voteQuestion.hidden = true;}
 
     askQuestion(event)
     {
+    	/*
+			Определяет, над каким элементом с игроком требуется отобразить вопрос о голосовании,
+				после чего отображает его для этого игрока при помощи метода showQuestion.
+    	*/
     	for (let player of this.players)
     	{
     		if (player.contains(event.target))
@@ -78,14 +101,23 @@ class View
 
     bindControls()
     {
+    	/*
+			Добавление обработчиков при нажатии на элементы.
+    	*/
     	this.showChat.onclick = this.hideChat.bind(this)
     	this.muteMicro.onclick = this.changeMuteMicro.bind(this)
     	this.muteVideo.onclick = this.changeMuteVideo.bind(this)
-    }
 
+    	this.body.onclick = this.askQuestion.bind(this);
+       	this.voteCancel.onclick = this.hideQuestion.bind(this);
+    }
 
     resize()
     {
+    	/*
+			Метод вызывается при изменении размеров окна, переоперделяет размеры игрового поля (контейнера для элементов с игроками), 
+			изменяет размеры элементов с игроками при помощи метода resizePlayers.
+    	*/
     	this.w = parseInt(this.body.clientWidth);
         this.h = parseInt(this.body.clientHeight);
         this.resizePlayers();
@@ -93,6 +125,10 @@ class View
 
     resizePlayers()
     {
+    	/*
+			Изменяет размеры всех элементов с игроками.
+			Элементы стараются расположиться так, чтобы столбцов из элементов было столько же или на 1 больше, чем строк из элементов.
+    	*/
     	this._perRow = !this.perRowSetted ? Math.ceil(Math.sqrt(this.players.length)) : this._perRow;
     	this.standartWidth = this.w / this.perRow - 2 * this.playerMargin;
     	this.standartHeight = this.players ? this.h / Math.ceil(this.players.length / this.perRow) - 2*this.playerMargin : this.standartHeight; 
@@ -103,7 +139,6 @@ class View
 			player.style.height = this.standartHeight + 'px';
     	}
     }
-
 
     get perRow() {return this._perRow;}
     set perRow(value)
@@ -134,14 +169,38 @@ class View
     changeMuteMicro() {this.muteMicro.classList.toggle('muted');}
     changeMuteVideo() {this.muteVideo.classList.toggle('muted');}
 
-    hideChat()
-    {
-    	this.chatHidden = !this.chatHidden;
-    	this.chat.hidden = this.chatHidden;
-    }
+    hideChat() {this.chat.hidden = !this.chat.hidden;}
 
     createPlayer(username, src = '', options)
     {
+    	/*
+			Создаёт элемент игрока (в котором изображение, статус и пр.) вида:
+				<div class = "player">
+					<label class = "username">{{USERNAME}}</label>
+					<div class = "info"></div>
+					<div class = "vote"></div>
+					<div class = "dead"></div>
+				</div>
+			, где: 
+				{{USERNAME}} - значение параметра username,
+			и добавляет внутрь <div id = 'game-field'>.
+
+			В зависимости от options, для <div class = "player"> устанавливаются:
+				класс "voiced" - означает, что данный игрок говорит.;
+				класс "muted" - означает, что данный игрок выключил микрофон;
+				класс "dead" - означает, что персонаж данного игрока умер в игре;
+				атрибут "rule" - содержит роль персонажа данного игрока в игре (может быть: "mafia"(мафиози), "peaceful"(мирный житель), "sheriff"(коп));
+				атрибут "voted" - содержит количество голосов против данного игрока*.
+					* Для изменения количества голосов против каждого игрока вызывается метод playersVote().
+
+			div-ы c классами "info", "vote", "dead" изначально скрыты (display: none).
+				info отображается, если у player есть атрибут rule;
+				vote отображается, если у player есть атрибут voted;
+				dead оторбажается, если у player есть класс dead.
+				
+			Размер элемента определяется автоматически в зависимости от размеров окна и количества уже имеющихся игроков.
+	    */
+
     	if (!this.body) return;
         let player = document.createElement('div');
 		player.classList.add('player');
@@ -182,6 +241,15 @@ class View
 
     createChatMessage(username, message)
     {
+    	/*
+			Создаёт сообщение вида:
+				<p class = "message"><label class = "username">{{USERNAME}}</label><b>: </b>{{MESSAGE}}</p>
+			, где: 
+				{{USERNAME}} - значение параметра username;
+				{{MESSAGE}} - значение параметра message;
+			и добавляет внутрь <div id = 'chat-body'>.
+	    */
+
     	if (!this.chatBody) return;
     	let p = document.createElement('p');
     	p.classList.add('message');
